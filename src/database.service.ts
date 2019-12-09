@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { createPool, Pool, PoolConnection } from 'mariadb';
-import { OperationDto } from './models/OperationDTO';
+import { OperationDto } from './models/OperationDto';
 import { Site } from './models/Site';
 import {
   DELETE_BY_ID,
