@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { DatabaseService } from './database.service';
-import { OperationDto } from './models/OperationDTO';
+import { OperationDto } from './models/OperationDto';
 import { Site } from './models/Site';
 
 @Controller()
