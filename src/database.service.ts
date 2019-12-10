@@ -65,7 +65,7 @@ export class DatabaseService {
           site.chapter_count,
           site.chapter_date,
           site.watched ? 1 : 0,
-          site.chapter_last_read,
+          site.chapter_last_readed,
           site.chapter_last_published,
           site.status,
           site.id,
