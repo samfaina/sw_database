@@ -10,7 +10,8 @@ export class Site {
   watched: boolean;
   favorite: boolean;
   chapter_last_published: string;
-  chapter_last_readed: string;
+  chapter_last_read: string;
+  archived: boolean;
   status: string;
   format_date: string;
 
@@ -25,8 +26,9 @@ export class Site {
     this.name = data.name;
     this.watched = data.watched === 1;
     this.favorite = data.favorite === 1;
+    this.archived = data.favorite === 1;
     this.chapter_last_published = data.chapter_last_published || '';
-    this.chapter_last_readed = data.chapter_last_readed || '';
+    this.chapter_last_read = data.chapter_last_read || '';
     this.status = data.status || '';
     this.format_date = data.format_date || 'DD MMM YYYY';
   }

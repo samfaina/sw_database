@@ -20,7 +20,7 @@ export class DatabaseController {
 
   @MessagePattern('markAsRead')
   async markAllAsRead(): Promise<OperationDto> {
-    return this.dbService.markAllAsReaded();
+    return this.dbService.markAllAsRead();
   }
 
   @MessagePattern('updateSite')
