@@ -1,9 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { createPool, Pool, PoolConnection } from 'mariadb';
 import { OperationDto } from './models/OperationDto';
 import { Site } from './models/Site';
 import {
   DELETE_BY_ID,
+  FIND_USER,
   INSERT_SITE,
   MARK_ALL_AS_READ,
   SELECT_ALL_SORTED,
@@ -27,6 +28,29 @@ export class DatabaseService {
       connectionLimit: 5,
     });
     this.logger.log('DB Pool created');
+  }
+
+  async findUser(username: string): Promise<any> {
+    let conn: PoolConnection;
+    return new Promise(async (resolve, reject) => {
+      try {
+        conn = await this.pool.getConnection();
+        const users = await conn.query(FIND_USER, username);
+        if (users.length === 1) {
+          this.logger.log(`Founded ${users[0].username}`);
+          resolve(users[0]);
+        } else {
+          throw new NotFoundException();
+        }
+      } catch (err) {
+        this.logger.error('Find user Error', err);
+        reject(err);
+      } finally {
+        if (conn) {
+          conn.end();
+        }
+      }
+    });
   }
 
   async findAllSites(): Promise<Site[]> {

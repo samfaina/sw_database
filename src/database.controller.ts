@@ -8,6 +8,11 @@ import { Site } from './models/Site';
 export class DatabaseController {
   constructor(private readonly dbService: DatabaseService) {}
 
+  @MessagePattern('findUser')
+  async findUser(username: string): Promise<any> {
+    return this.dbService.findUser(username);
+  }
+
   @MessagePattern('findAll')
   async findAll(): Promise<Site[]> {
     return this.dbService.findAllSites();

@@ -8,3 +8,4 @@ export const SELECT_BY_ID = 'SELECT * FROM sites WHERE id = ?';
 export const INSERT_SITE = 'INSERT INTO sites (url, name) VALUES (?, ?)';
 export const DELETE_BY_ID = 'DELETE FROM sites WHERE id = ?';
 export const MARK_ALL_AS_READ = 'UPDATE sites SET watched=1';
+export const FIND_USER = 'SELECT * FROM users WHERE username = ?';
