@@ -1,16 +1,9 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { createPool, Pool, PoolConnection } from 'mariadb';
+import * as moment from 'moment';
 import { OperationDto } from './models/OperationDto';
 import { Site } from './models/Site';
-import {
-  DELETE_BY_ID,
-  FIND_USER,
-  INSERT_SITE,
-  MARK_ALL_AS_READ,
-  SELECT_ALL_SORTED,
-  SELECT_BY_ID,
-  UPDATE_SITE,
-} from './utils/queries';
+import { DELETE_BY_ID, FIND_USER, INSERT_SITE, MARK_ALL_AS_READ, SELECT_ALL_SORTED, SELECT_BY_ID, UPDATE_SITE } from './utils/queries';
 
 @Injectable()
 export class DatabaseService {
@@ -81,9 +74,9 @@ export class DatabaseService {
       try {
         conn = await this.pool.getConnection();
         const res = await conn.query(UPDATE_SITE, [
-          site.last_update,
+          this.formatDate(site.last_update),
           site.chapter_count,
-          site.chapter_date,
+          this.formatDate(site.last_update),
           site.watched ? 1 : 0,
           site.chapter_last_read !== undefined &&
           site.chapter_last_read !== null
@@ -190,5 +183,14 @@ export class DatabaseService {
         }
       }
     });
+  }
+
+  formatDate(date): string {
+    const tempDate = moment(date);
+    if (tempDate.isValid()) {
+      return tempDate.format('YYYY-MM-DD');
+    }
+
+    return null;
   }
 }
