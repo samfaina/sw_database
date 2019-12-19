@@ -10,8 +10,8 @@ const logger = new Logger('Database Main');
 const microserviceOptions = {
   transport: Transport.TCP,
   options: {
-    host: '127.0.0.1',
-    port: 8876,
+    host: process.env.SW_DB_MICRO_HOST,
+    port: process.env.SW_DB_MICRO_PORT,
   },
 };
 

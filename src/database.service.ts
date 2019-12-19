@@ -3,21 +3,27 @@ import { createPool, Pool, PoolConnection } from 'mariadb';
 import * as moment from 'moment';
 import { OperationDto } from './models/OperationDto';
 import { Site } from './models/Site';
-import { DELETE_BY_ID, FIND_USER, INSERT_SITE, MARK_ALL_AS_READ, SELECT_ALL_SORTED, SELECT_BY_ID, UPDATE_SITE } from './utils/queries';
+import {
+  DELETE_BY_ID,
+  FIND_USER,
+  INSERT_SITE,
+  MARK_ALL_AS_READ,
+  SELECT_ALL_SORTED,
+  SELECT_BY_ID,
+  UPDATE_SITE,
+} from './utils/queries';
 
 @Injectable()
 export class DatabaseService {
   private pool: Pool;
-  private usr = 'scrapy';
   private logger = new Logger('DatabaseService');
 
   constructor() {
     this.pool = createPool({
-      //   host: '192.168.1.132',
-      host: '127.0.0.1',
-      user: this.usr,
-      database: 'scrapydb',
-      password: this.usr,
+      host: process.env.SW_DB_HOST,
+      user: process.env.SW_DB_USER,
+      database: process.env.SW_DB_NAME,
+      password: process.env.SW_DB_PWD,
       connectionLimit: 5,
     });
     this.logger.log('DB Pool created');
